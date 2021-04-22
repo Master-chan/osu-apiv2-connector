@@ -1,5 +1,8 @@
 # osu! API v2 Java Connector
 
+Java bindings for osu! API v2 which should eventually make v1 obsolete.
+Official documentation: https://osu.ppy.sh/docs/index.html
+
 ## Building:
 
 _Clone, build and install artifact into your local maven repo:_

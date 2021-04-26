@@ -10,6 +10,7 @@ import org.osumm.apiv2.endpoints.impl.GetClientCredentialsToken.ClientCredential
 import org.osumm.apiv2.endpoints.impl.GetClientCredentialsToken.ClientCredentialsResponse;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,19 +45,26 @@ public class GetClientCredentialsToken extends Endpoint<ClientCredentialsRequest
 	@RequiredArgsConstructor
 	public static class ClientCredentialsRequest
 	{
-		@JsonProperty("client_id")		private final long clientId;
-		@JsonProperty("client_secret")	private final String clientSecret;
-		@JsonProperty("grant_type")		private String grantType = "client_credentials";
-		@JsonProperty("scope")			private String scope = "public"; // Might change to "bot" for bot accounts in the future
+		@JsonProperty("client_id") @SerializedName("client_id")
+		private final long clientId;
+		@JsonProperty("client_secret") @SerializedName("client_secret")
+		private final String clientSecret;
+		@JsonProperty("grant_type") @SerializedName("grant_type")			
+		private String grantType = "client_credentials";
+		@JsonProperty("scope") @SerializedName("scope")				
+		private String scope = "public"; // Might change to "bot" for bot accounts in the future
 	}
 	
 	@Getter
 	@NoArgsConstructor
 	public static class ClientCredentialsResponse
 	{
-		@JsonProperty("token_type")		private String tokenType;
-		@JsonProperty("expires_in")		private long expiresIn;
-		@JsonProperty("access_token")	private String accessToken;
+		@JsonProperty("token_type")	@SerializedName("token_type")	
+		private String tokenType;
+		@JsonProperty("expires_in")	@SerializedName("expires_in")	
+		private long expiresIn;
+		@JsonProperty("access_token") @SerializedName("access_token")	
+		private String accessToken;
 	}
 
 }

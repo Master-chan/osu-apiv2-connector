@@ -99,6 +99,7 @@ public class OsuApi
 	 * @return Response object.
 	 * @throws EndpointNotRegisteredException endpoint with provided class wasn't registered.
 	 * @throws IOException propagates any IO exceptions from http and serialization providers. IOExceptions with code 404 on default HTTP provider usually indicate that requested entity (for example player) wasn't found.
+	 * @throws IllegalArgumentException endpoint implementation specific exception indicating there was an error in request object
 	 */
 	public <R, R1> R1 request(Class<? extends Endpoint<R, R1>> endpointClass, R request) throws EndpointNotRegisteredException, IOException
 	{

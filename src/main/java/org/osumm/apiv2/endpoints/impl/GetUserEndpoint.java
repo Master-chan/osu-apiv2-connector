@@ -46,10 +46,16 @@ public class GetUserEndpoint extends Endpoint<GetUserRequest, GetUserResponse>
 	@Override
 	public GetUserResponse request(GetUserRequest paramHolder, String authToken) throws IOException
 	{
+		if(paramHolder.getUserId() < 1 && paramHolder.getUsername() == null)
+		{
+			throw new IllegalArgumentException("User request should have non-null username or valid userId (>=1)");
+		}
+		
 		String url = String.format(urlFormat, 
 				paramHolder.getUserId() >= 1 ? paramHolder.getUserId() : paramHolder.getUsername(), 
 				paramHolder.getMode() != null ? paramHolder.getMode() : "",
 				paramHolder.getUserId() >= 1 ? "id" : "username");
+		System.out.printf("%s\n", url);
 		String value = getHttpClientProvider().get(new URL(url), 5000, authToken);
 		GetUserResponse response = getJsonProvider().fromJson(value, GetUserResponse.class);
 		return response;

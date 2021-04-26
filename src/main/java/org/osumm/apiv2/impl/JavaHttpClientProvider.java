@@ -30,10 +30,8 @@ public class JavaHttpClientProvider implements HttpClientProviderBase
 		HttpURLConnection connection = openConnection(url, timeout, null);
 		connection.setRequestProperty("Accept","application/json");
 		connection.setRequestProperty("Content-Type","application/json");
-		connection.setUseCaches(false);
 		connection.setDoInput(true);
 		connection.setDoOutput(true);
-		//connection.connect();
 
 		try(DataOutputStream dos = new DataOutputStream(connection.getOutputStream()))
 		{
@@ -59,14 +57,19 @@ public class JavaHttpClientProvider implements HttpClientProviderBase
 	public String get(URL url, int timeout, String authToken) throws IOException
 	{
 		HttpURLConnection connection = openConnection(url, timeout, authToken);
-		connection.connect();
-
-		if(connection.getResponseCode() != 200) 
+		try
 		{
-			throw new IOException("HTTP Response code: " + connection.getResponseCode());
+			connection.connect();
+			if(connection.getResponseCode() != 200) 
+			{
+				throw new IOException("HTTP Response code: " + connection.getResponseCode());
+			}
+			return readContent(connection);
 		}
-
-		return readContent(connection);
+		finally
+		{
+			connection.disconnect();
+		}
 	}
 	
 	private String readContent(HttpURLConnection connection) throws IOException

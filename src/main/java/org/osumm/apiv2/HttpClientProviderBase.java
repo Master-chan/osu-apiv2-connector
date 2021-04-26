@@ -14,7 +14,7 @@ public interface HttpClientProviderBase
 {
 	
 	/**
-	 * Makes POST call to specific URL. Currently only used in authorization flow and uses "application/json" as content type.
+	 * Makes POST call to specific URL. All API POST calls are currently using "application/json" as content type.
 	 * @param url - destination
 	 * @param params - POST parameters body
 	 * @param timeout - connection timeout
@@ -22,7 +22,7 @@ public interface HttpClientProviderBase
 	public String post(URL url, String params, int timeout) throws IOException;
 	
 	/**
-	 * Makes POST call to specific URL. Currently only used in authorization flow and uses "application/json" as content type.
+	 * Makes POST call to specific URL. All API POST calls are currently using "application/json" as content type.
 	 * @param url - destination
 	 * @param params - POST parameters body
 	 * @param timeout - connection timeout
